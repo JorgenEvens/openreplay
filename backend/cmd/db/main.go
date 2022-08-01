@@ -105,6 +105,12 @@ func main() {
 			event []byte
 			err   error
 		)
+		tp := msg.TypeID()
+		shouldSendEvent := false
+		if tp == 39 || tp == 51 || tp == 31 || tp == 48 || tp == 50 {
+			shouldSendEvent = true
+			log.Println("message type:", tp)
+		}
 		switch m := msg.(type) {
 		// Common
 		case *messages.Fetch:
@@ -177,7 +183,9 @@ func main() {
 					log.Printf("successfully sent event to quickwit topic")
 				}
 			} else {
-				log.Printf("event is empty")
+				if shouldSendEvent {
+					log.Printf("event is empty")
+				}
 			}
 		}
 
