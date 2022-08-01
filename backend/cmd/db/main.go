@@ -108,6 +108,7 @@ func main() {
 		switch m := msg.(type) {
 		// Common
 		case *messages.Fetch:
+			log.Printf("fetch message")
 			event, err = json.Marshal(FetchEvent{
 				Method:    m.Method,
 				URL:       m.URL,
@@ -118,6 +119,7 @@ func main() {
 				Duration:  m.Duration,
 			})
 		case *messages.FetchEvent:
+			log.Printf("fetch message")
 			event, err = json.Marshal(FetchEvent{
 				Method:    m.Method,
 				URL:       m.URL,
@@ -128,6 +130,7 @@ func main() {
 				Duration:  m.Duration,
 			})
 		case *messages.PageEvent:
+			log.Printf("page message")
 			event, err = json.Marshal(PageEvent{
 				MessageID:                  m.MessageID,
 				Timestamp:                  m.Timestamp,
@@ -148,6 +151,7 @@ func main() {
 				TimeToInteractive:          m.TimeToInteractive,
 			})
 		case *messages.GraphQL:
+			log.Printf("graphQL message")
 			event, err = json.Marshal(GraphQLEvent{
 				OperationKind: m.OperationKind,
 				OperationName: m.OperationName,
@@ -155,6 +159,7 @@ func main() {
 				Response:      m.Response,
 			})
 		case *messages.GraphQLEvent:
+			log.Printf("graphQL message")
 			event, err = json.Marshal(GraphQLEvent{
 				OperationKind: m.OperationKind,
 				OperationName: m.OperationName,
@@ -171,6 +176,8 @@ func main() {
 				} else {
 					log.Printf("successfully sent event to quickwit topic")
 				}
+			} else {
+				log.Printf("event is empty")
 			}
 		}
 
