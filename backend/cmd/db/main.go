@@ -168,6 +168,8 @@ func main() {
 			if len(event) > 0 {
 				if err := producer.Produce("quickwit", sessionID, event); err != nil {
 					log.Printf("can't send event to quickwit: %s", err)
+				} else {
+					log.Printf("successfully sent event to quickwit topic")
 				}
 			}
 		}
